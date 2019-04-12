@@ -1,0 +1,14 @@
+kind: pipeline
+name: default
+
+steps:
+- name: conform
+  image: autonomy/conform:c539351
+
+- name: build
+  image: autonomy/build-container:latest
+  pull: true
+  environment:
+    BUILDKIT_HOST: tcp://buildkitd.ci.svc:1234
+  commands:
+    - make
