@@ -1,0 +1,33 @@
+--- Makefile	2019-04-12 11:33:20.000000000 -0500
++++ Makefile	2019-04-12 11:33:47.000000000 -0500
+@@ -1218,7 +1218,6 @@
+ # ---------------------------------------------------------------------------
+ # Modules
+
+-ifdef CONFIG_MODULES
+
+ # By default, build modules as well
+
+@@ -1278,22 +1277,6 @@
+ 	$(Q)$(MAKE) -f $(srctree)/scripts/Makefile.modsign
+ endif
+
+-else # CONFIG_MODULES
+-
+-# Modules not configured
+-# ---------------------------------------------------------------------------
+-
+-PHONY += modules modules_install
+-modules modules_install:
+-	@echo >&2
+-	@echo >&2 "The present kernel configuration has modules disabled."
+-	@echo >&2 "Type 'make config' and enable loadable module support."
+-	@echo >&2 "Then build a kernel with module support enabled."
+-	@echo >&2
+-	@exit 1
+-
+-endif # CONFIG_MODULES
+-
+ ###
+ # Cleaning is done on three levels.
+ # make clean     Delete most generated files
