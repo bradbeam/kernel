@@ -12,7 +12,11 @@ RUN mkdir -p /usr/bin \
     && ln -s /toolchain/bin/pwd /bin/pwd
 RUN /bin/check-config.sh .config
 RUN make -j $(($(nproc) / 2))
+COPY patches/Makefile_module.builtin.patch /src/Makefile_module.builtin.patch
+RUN patch < Makefile_module.builtin.patch
+RUN make -j $(($(nproc) / 2)) modules
 
 FROM scratch AS kernel
 COPY --from=kernel-build /src/vmlinux /vmlinux
 COPY --from=kernel-build /src/arch/x86/boot/bzImage /vmlinuz
+COPY --from=kernel-build /src/modules.builtin /modules.builtin
